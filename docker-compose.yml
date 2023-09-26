@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  basketapi:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: src/BasketApi/Dockerfile
+  customerapi:
+    image: ${DOCKER_REGISTRY-}customerapi
+    build:
+      context: .
+      dockerfile: src/CustomerApi/Dockerfile
+  fulfilmentapi:
+    image: ${DOCKER_REGISTRY-}fulfilmentapi
+    build:
+      context: .
+      dockerfile: src/FulfilmentApi/Dockerfile
+  orderapi:
+    image: ${DOCKER_REGISTRY-}orderapi
+    build:
+      context: .
+      dockerfile: src/OrderApi/Dockerfile
+  productcatalogueapi:
+    image: ${DOCKER_REGISTRY-}productcatalogueapi
+    build:
+      context: .
+      dockerfile: src/ProductCatalogueApi/Dockerfile
+  shopui:
+      image: ${DOCKER_REGISTRY-}shopui
+      build:
+        context: .
+        dockerfile: src/ShopUI/Dockerfile
+      ports:
+        - "5000:80"
+        - "5001:443"
