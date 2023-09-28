@@ -26,11 +26,18 @@ services:
     build:
       context: .
       dockerfile: src/ProductCatalogueApi/Dockerfile
+  publicapigw:
+    image:  ${DOCKER_REGISTRY-}gatewayapi:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/GatewayApi/Dockerfile
+  privateapigw:
+    image: ${DOCKER_REGISTRY-}gatewayapi:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/GatewayApi/Dockerfile
   shopui:
       image: ${DOCKER_REGISTRY-}shopui
       build:
         context: .
         dockerfile: src/ShopUI/Dockerfile
-      ports:
-        - "5000:80"
-        - "5001:443"

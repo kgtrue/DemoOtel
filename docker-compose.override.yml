@@ -11,3 +11,21 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  
+  publicapigw:     
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - IdentityUrl=http://identity-api
+    ports:
+      - "5200:80"
+    volumes:
+      - ./src/Gateways/Public:/app/configuration
+  
+  privateapigw: 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - IdentityUrl=http://identity-api
+    ports:
+    - "5201:80"
+    volumes:
+      - ./src/Gateways/Private:/app/configuration

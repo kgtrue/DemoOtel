@@ -63,7 +63,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{C676
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2AC23E84-4096-49B1-9433-C5290732D013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopUI", "src\ShopUI\ShopUI.csproj", "{49251366-1B3B-458C-96BE-1CDF23C5CFE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopUI", "src\ShopUI\ShopUI.csproj", "{49251366-1B3B-458C-96BE-1CDF23C5CFE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GatewayApi", "src\GatewayApi\GatewayApi.csproj", "{0AE65AAD-AF1B-41BB-AC29-6077A8ED338A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{48F59173-DDAB-495F-9AAB-44926D71266B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Public", "Public", "{BEEC1E9E-8D9A-4875-888B-24142FC85E52}"
+	ProjectSection(SolutionItems) = preProject
+		src\Gateways\Public\configuration.json = src\Gateways\Public\configuration.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Private", "Private", "{5FAAEF3E-FCAF-4A5C-B97F-EC0E5AC66D8D}"
+	ProjectSection(SolutionItems) = preProject
+		src\Gateways\Private\configuration.json = src\Gateways\Private\configuration.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -167,6 +181,10 @@ Global
 		{49251366-1B3B-458C-96BE-1CDF23C5CFE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49251366-1B3B-458C-96BE-1CDF23C5CFE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49251366-1B3B-458C-96BE-1CDF23C5CFE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AE65AAD-AF1B-41BB-AC29-6077A8ED338A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AE65AAD-AF1B-41BB-AC29-6077A8ED338A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AE65AAD-AF1B-41BB-AC29-6077A8ED338A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AE65AAD-AF1B-41BB-AC29-6077A8ED338A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -195,6 +213,10 @@ Global
 		{FEE9B47B-11A3-4DB4-8699-509F6954AE09} = {3868DE27-8BDA-462A-95E7-404980137239}
 		{C6C5434C-A74C-45B4-B2C9-5AB54C9F4C99} = {3868DE27-8BDA-462A-95E7-404980137239}
 		{49251366-1B3B-458C-96BE-1CDF23C5CFE6} = {C48333EA-FB71-4F98-9FF3-0BF051919F14}
+		{0AE65AAD-AF1B-41BB-AC29-6077A8ED338A} = {289152F8-7462-4DA0-A9EE-70C2A6BD1431}
+		{48F59173-DDAB-495F-9AAB-44926D71266B} = {289152F8-7462-4DA0-A9EE-70C2A6BD1431}
+		{BEEC1E9E-8D9A-4875-888B-24142FC85E52} = {48F59173-DDAB-495F-9AAB-44926D71266B}
+		{5FAAEF3E-FCAF-4A5C-B97F-EC0E5AC66D8D} = {48F59173-DDAB-495F-9AAB-44926D71266B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0652CE99-02C7-481B-A6DE-B440706228EB}

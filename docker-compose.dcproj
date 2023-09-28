@@ -5,8 +5,8 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>2ac23e84-4096-49b1-9433-c5290732d013</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{5000}/</DockerServiceUrl>
-    <DockerServiceName>shopui</DockerServiceName>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/</DockerServiceUrl>
+    <DockerServiceName>gatewayapi</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
