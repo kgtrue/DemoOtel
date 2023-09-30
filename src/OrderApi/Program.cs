@@ -17,6 +17,7 @@ builder.Services.AddOpenTelemetry()
   {
       b
       .AddConsoleExporter()
+      .AddOtlpExporter(config => { config.Endpoint = new Uri("http://jaeger:4317"); })
       .AddAspNetCoreInstrumentation()
       .AddSource(serviceName)
       .ConfigureResource(resource =>

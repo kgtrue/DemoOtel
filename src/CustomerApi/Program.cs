@@ -16,6 +16,7 @@ builder.Services.AddOpenTelemetry()
   {
       b
       .AddConsoleExporter()
+      .AddOtlpExporter(config => { config.Endpoint = new Uri("http://jaeger:4317"); })
       .AddAspNetCoreInstrumentation()
       .AddSource(serviceName)
       .ConfigureResource(resource =>
@@ -36,6 +37,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+var tracer = app.Services.GetRequiredService<Tracer>();
+using var span = tracer.StartActiveSpan($"SayHello {serviceName}");
 
 var summaries = new[]
 {

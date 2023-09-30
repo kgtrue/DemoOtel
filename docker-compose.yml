@@ -6,38 +6,108 @@ services:
     build:
       context: .
       dockerfile: src/BasketApi/Dockerfile
+    depends_on:
+      - jaeger
+    ports:
+      - 5003:80
+    networks:
+      - otel
   customerapi:
     image: ${DOCKER_REGISTRY-}customerapi
     build:
       context: .
       dockerfile: src/CustomerApi/Dockerfile
+    depends_on:
+      - jaeger
+    networks:
+      - otel
   fulfilmentapi:
     image: ${DOCKER_REGISTRY-}fulfilmentapi
     build:
       context: .
       dockerfile: src/FulfilmentApi/Dockerfile
+    depends_on:
+      - jaeger
+    networks:
+      - otel
   orderapi:
     image: ${DOCKER_REGISTRY-}orderapi
     build:
       context: .
       dockerfile: src/OrderApi/Dockerfile
+    depends_on:
+      - jaeger
+    networks:
+      - otel
   productcatalogueapi:
     image: ${DOCKER_REGISTRY-}productcatalogueapi
     build:
       context: .
       dockerfile: src/ProductCatalogueApi/Dockerfile
+    depends_on:
+      - jaeger
+    networks:
+      - otel
   publicapigw:
     image:  ${DOCKER_REGISTRY-}gatewayapi:${TAG:-latest}
     build:
       context: .
       dockerfile: src/GatewayApi/Dockerfile
+    networks:
+      - otel
   privateapigw:
     image: ${DOCKER_REGISTRY-}gatewayapi:${TAG:-latest}
     build:
       context: .
       dockerfile: src/GatewayApi/Dockerfile
+    networks:
+      - otel
   shopui:
-      image: ${DOCKER_REGISTRY-}shopui
-      build:
-        context: .
-        dockerfile: src/ShopUI/Dockerfile
+    image: ${DOCKER_REGISTRY-}shopui
+    build:
+      context: .
+      dockerfile: src/ShopUI/Dockerfile
+    depends_on:
+      - jaeger
+    networks:
+      - otel
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password!
+    ports:
+      - "1433:1433"
+    networks:
+      - otel
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=Password!
+    ports:
+      - "5432:5432"
+    networks:
+      - otel
+  jaeger:
+    container_name: 'jaeger'  
+    image: jaegertracing/all-in-one
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+    ports:
+     - 6831:6831/udp
+     - 6832:6832/udp
+     - 5778:5778
+     - 16686:16686
+     - 4317:4317
+     - 4318:4318
+     - 14250:14250
+     - 14268:14268
+     - 14269:14269
+     - 9411:9411
+    labels:
+        NAME: "jaeger"
+    networks:
+      - otel
+
+networks:
+  otel:
