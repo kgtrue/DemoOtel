@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BasketAppImplementation\BasketAppImplementation.csproj" />
+    <ProjectReference Include="..\BasketApp\BasketApp.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 

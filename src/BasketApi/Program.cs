@@ -1,6 +1,11 @@
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Common.Tracing;
+using BasketApp;
+using BasketAppImplementation;
+using MediatR;
+using BasketApp.Baskets.CreateBasket;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -26,6 +31,8 @@ builder.Services.AddOpenTelemetry()
   });
 
 builder.Services.SetupActivitySource(serviceName, serviceVersion);
+builder.Services.AddBasketApplication();
+builder.Services.AddBasketInfrastructure();
 
 var app = builder.Build();
 
@@ -41,25 +48,12 @@ app.UseHttpsRedirection();
 var tracer = app.Services.GetRequiredService<Tracer>();
 using var span = tracer.StartActiveSpan($"SayHello {serviceName}");
 
-var summaries = new[]
+app.MapPost("/baskets/", async (IMediator mediator, CreateBasketRequest request) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var basket = await mediator.Send(request);
+    return Results.Ok(basket);
 
-app.MapGet("/weatherforecast", (Tracer tracer) =>
-{
-    using var span = tracer.StartActiveSpan("hello-span");
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
+}).WithName("Baskets")
 .WithOpenApi();
 
 app.Run();
