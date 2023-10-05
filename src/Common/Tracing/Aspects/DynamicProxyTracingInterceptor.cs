@@ -23,6 +23,8 @@ namespace Common.Tracing.Aspects
             }
             catch (TargetInvocationException exc)
             {
+                span.SetAttribute("ErrorMsg", exc.Message);
+                span.SetAttribute("stack", exc.StackTrace);
                 span.RecordException(exc.InnerException);
                 throw exc.InnerException;
             }

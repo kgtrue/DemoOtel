@@ -22,6 +22,7 @@ builder.Services.AddOpenTelemetry()
       .AddConsoleExporter()
       .AddOtlpExporter(config => { config.Endpoint = new Uri("http://jaeger:4317"); })
       .AddAspNetCoreInstrumentation()
+      .AddEntityFrameworkCoreInstrumentation()
       .AddSource(serviceName)
       .ConfigureResource(resource =>
           resource.AddService(
@@ -36,13 +37,13 @@ builder.Services.AddCustomerInfrastructure(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.Services.GetRequiredService<ICustomerDbContext>().Migrate();
+//if (app.Environment.IsDevelopment())
+//{
+    
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-
+//}
+app.Services.GetRequiredService<ICustomerDbContext>().Migrate();
 app.UseHttpsRedirection();
 
 var tracer = app.Services.GetRequiredService<Tracer>();

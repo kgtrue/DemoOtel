@@ -19,6 +19,8 @@ services:
       dockerfile: src/CustomerApi/Dockerfile
     depends_on:
       - jaeger
+    ports:
+      - 5004:80
     networks:
       - otel
   fulfilmentapi:
@@ -37,6 +39,7 @@ services:
       dockerfile: src/OrderApi/Dockerfile
     depends_on:
       - jaeger
+      - mssql
     networks:
       - otel
   productcatalogueapi:

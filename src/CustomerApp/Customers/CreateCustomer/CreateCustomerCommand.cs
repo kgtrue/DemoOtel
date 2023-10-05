@@ -18,6 +18,8 @@ namespace CustomerApp.Customers.CreateCustomer
             var requestValidator = new CreateCustomerRequestValidator();
             requestValidator.Validate(request, options => options.ThrowOnFailures());
 
+            throw new ArgumentException ("Some error");
+
             var customer = await _customerRepo.CreateCustomer(
                 new Customer(
                     request.FirstName,
