@@ -20,7 +20,5 @@ namespace BasketApp
 
             return services;
         }
-
-
     }
 }

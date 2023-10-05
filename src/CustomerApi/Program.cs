@@ -1,6 +1,10 @@
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Common.Tracing;
+using CustomerApp;
+using CustomerAppImplementation;
+using CustomerApp.Customers.CreateCustomer;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -26,12 +30,15 @@ builder.Services.AddOpenTelemetry()
   });
 
 builder.Services.SetupActivitySource(serviceName, serviceVersion);
+builder.Services.AddCustomerApplication();
+builder.Services.AddCustomerInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.Services.GetRequiredService<ICustomerDbContext>().Migrate();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -41,29 +48,12 @@ app.UseHttpsRedirection();
 var tracer = app.Services.GetRequiredService<Tracer>();
 using var span = tracer.StartActiveSpan($"SayHello {serviceName}");
 
-var summaries = new[]
+app.MapPost("/customers/", async (ICreateCustomerCommand command, CreateCustomerRequest request, CancellationToken cancellationToken) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var result = await command.CreateCustomer(request, cancellationToken);
+    return Results.Ok(result);
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
+}).WithName("Customers")
 .WithOpenApi();
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\CustomerAppImplementation\CustomerAppImplementation.csproj" />
+    <ProjectReference Include="..\CustomerApp\CustomerApp.csproj" />
   </ItemGroup>
 
 </Project>
