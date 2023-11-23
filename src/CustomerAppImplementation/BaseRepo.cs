@@ -8,9 +8,9 @@ namespace CustomerAppImplementation
 {
     internal abstract class BaseRepo
     {
-        protected readonly ICustomerDbContext _customerDbContext;
+        protected readonly CustomerDbContext _customerDbContext;
 
-        public BaseRepo(ICustomerDbContext customerDbContext)
+        public BaseRepo(CustomerDbContext customerDbContext)
         {
             _customerDbContext = customerDbContext;
         }

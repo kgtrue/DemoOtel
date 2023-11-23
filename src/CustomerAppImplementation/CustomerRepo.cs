@@ -6,7 +6,7 @@ namespace CustomerAppImplementation
 {
     internal class CustomerRepo : BaseRepo, ICustomerRepo
     {
-        public CustomerRepo(ICustomerDbContext customerDbContext) : base(customerDbContext)
+        public CustomerRepo(CustomerDbContext customerDbContext) : base(customerDbContext)
         {
 
         }

@@ -1,7 +1,6 @@
 ﻿using BasketApp.Contracts;
 using BasketAppImplementation.Repos;
 using Microsoft.Extensions.DependencyInjection;
-using Common.Tracing.Aspects;
 
 namespace BasketAppImplementation
 {
@@ -9,8 +8,8 @@ namespace BasketAppImplementation
     {
         public static IServiceCollection AddBasketInfrastructure(this IServiceCollection services)
         {
-            services.AddProxiedScoped<IBasketRepo, BasketRepo>();
-            services.AddProxiedScoped<ICustomerRepo, CustomerRepo>();
+            services.AddScoped<IBasketRepo, BasketRepo>();
+            services.AddScoped<ICustomerRepo, CustomerRepo>();
             return services;
         }
     }

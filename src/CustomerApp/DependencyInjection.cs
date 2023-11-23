@@ -1,13 +1,11 @@
-﻿using CustomerApp.Customers.CreateCustomer;
-using Microsoft.Extensions.DependencyInjection;
-using Common.Tracing.Aspects;
+﻿using Microsoft.Extensions.DependencyInjection;
 namespace CustomerApp
 {
     public static class DependencyInjection
     {
         public static IServiceCollection AddCustomerApplication(this IServiceCollection services)
         {
-            services.AddProxiedScoped<ICreateCustomerCommand, CreateCustomerCommand>();
+          
             return services;
         }
     }

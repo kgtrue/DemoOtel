@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CustomerAppImplementation
 {
-    internal class CustomerDbContext : DbContext, ICustomerDbContext
+    public class CustomerDbContext : DbContext
     {
         public CustomerDbContext(DbContextOptions dbContextOptions):base(dbContextOptions) { }
                     
@@ -45,11 +45,11 @@ namespace CustomerAppImplementation
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerDbContext).Assembly);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer();
-            base.OnConfiguring(optionsBuilder);
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer();
+        //    base.OnConfiguring(optionsBuilder);
+        //}
 
         public void Migrate()
         {
